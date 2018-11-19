@@ -35,6 +35,11 @@ net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
 
 camera = pylon.InstantCamera(pylon.TlFactory.GetInstance().CreateFirstDevice())
+camera.Open()
+print("Camera: {0}".format(camera.GetDeviceInfo().GetModelName()))
+# The next line can be used to dump the camera's settings
+#pylon.FeaturePersistence.Save("camera.cfg", camera.GetNodeMap())
+pylon.FeaturePersistence.Load("camera.cfg", camera.GetNodeMap())
 
 camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
 converter = pylon.ImageFormatConverter()
