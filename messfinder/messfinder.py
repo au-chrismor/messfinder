@@ -122,8 +122,8 @@ while camera.IsGrabbing():
 
         cv2.namedWindow('title', cv2.WINDOW_NORMAL)
         cv2.imshow('title', img)
-        k = cv2.waitKey(0)
-#        if k == 27:
-#            break
+        k = cv2.waitKey(1000)
+        if k == 27:
+            break
     
     grabResult.Release()
