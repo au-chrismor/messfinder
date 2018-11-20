@@ -8,17 +8,27 @@ from pypylon import pylon
 import cv2
 
 # Configuration
-slack_hook = "https://hooks.slack.com/services/String/String"
+slackHook = "https://hooks.slack.com/services/String/String"
+apiEndPoint = "https://String.execute-api.ap-southeast-2.amazonaws/com/prod/"
 
 def sendToSlack(message):
     try:
         slackText = { 'text': message }
         slackHeaders = { 'Content-Type': 'application/json' }
-        slackResp = requests.post(slack_hook,
+        slackResp = requests.post(slackHook,
             data = json.dumps(slackText),
             headers = slackHeaders)
     except Exception as ex:
         print("[ERROR] Slack error {0}".format(str(ex)))
+
+def getObject(objectToIdentify):
+    try:
+        payload = {'objectName': objectToIdentify}
+        response = requests.get(apiEndPoint + "ident", params = payload)
+        ret = json.loads(response.text)
+        return ret
+    except Exception as ex:
+        print("[ERROR] Request error {0}".format(str(ex)))
 
 # Parse the arguments.  argparse does the hard work for us.
 ap = argparse.ArgumentParser()
