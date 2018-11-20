@@ -1,0 +1,6 @@
+*.dat
+training-data/**/*.jpg
+training-data/**/*.jpeg
+test-data/*.jpg
+test-data/*.jpeg
+
