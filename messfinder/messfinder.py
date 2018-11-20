@@ -2,12 +2,23 @@ import argparse
 import os
 import time
 import json
+import requests
 import numpy as np
 from pypylon import pylon
 import cv2
 
 # Configuration
 slack_hook = "https://hooks.slack.com/services/String/String"
+
+def sendToSlack(message):
+    try:
+        slackText = { 'text': message }
+        slackHeaders = { 'Content-Type': 'application/json' }
+        slackResp = requests.post(slack_hook,
+            data = json.dumps(slackText),
+            headers = slackHeaders)
+    except Exception as ex:
+        print("[ERROR] Slack error {0}".format(str(ex)))
 
 # Parse the arguments.  argparse does the hard work for us.
 ap = argparse.ArgumentParser()
@@ -36,7 +47,7 @@ net = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 
 camera = pylon.InstantCamera(pylon.TlFactory.GetInstance().CreateFirstDevice())
 camera.Open()
-print("Camera: {0}".format(camera.GetDeviceInfo().GetModelName()))
+print("[INFO] Camera: {0}".format(camera.GetDeviceInfo().GetModelName()))
 # The next line can be used to dump the camera's settings
 #pylon.FeaturePersistence.Save("camera.cfg", camera.GetNodeMap())
 pylon.FeaturePersistence.Load("camera.cfg", camera.GetNodeMap())
@@ -52,7 +63,7 @@ while camera.IsGrabbing():
 
     if grabResult.GrabSucceeded():
         # Access the image data.
-        print("Size {0} x {1}".format(grabResult.Width, grabResult.Height))
+        print("[INFO] Size {0} x {1}".format(grabResult.Width, grabResult.Height))
         image = converter.Convert(grabResult)
         img = image.GetArray()
         (H, W) = img.shape[:2]
@@ -123,7 +134,7 @@ while camera.IsGrabbing():
                 cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
                 text = "{}: {:.4f}".format(LABELS[classIDs[i]], confidences[i])
                 cv2.putText(img, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-                print("Object: {0} Confidence: {1:.4f}%".format(LABELS[classIDs[i]], confidences[i] * 100))
+                print("[INFO] Object: {0} Confidence: {1:.4f}%".format(LABELS[classIDs[i]], confidences[i] * 100))
 
 
 
