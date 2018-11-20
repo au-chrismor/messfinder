@@ -10,8 +10,8 @@ import pickle
 
 print('Loading Subjects...')
 subjects = ['']
-subjects.append('Amelia Moran')
-subjects.append('Christopher Moran')
+subjects.append('Person 1')
+subjects.append('Person 2')
 # and so on...
 
 print('Done')
@@ -221,3 +221,4 @@ for test_img_name in tests:
 #cv2.destroyAllWindows()
 #cv2.waitKey(1)
 #cv2.destroyAllWindows()
+
