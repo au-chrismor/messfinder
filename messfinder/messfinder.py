@@ -147,6 +147,7 @@ while camera.IsGrabbing():
                 text = "{}: {:.4f}".format(LABELS[classIDs[i]], confidences[i])
                 cv2.putText(img, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
                 print("[INFO] Object: {0} Confidence: {1:.4f}%".format(LABELS[classIDs[i]], confidences[i] * 100))
+                print("Lookup: {0}".format(getObject(LABELS[classIDs[i]])))
 
 
 
