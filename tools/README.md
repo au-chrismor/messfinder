@@ -1,0 +1,1 @@
+optimal-settings.sh sets various kernel parameters to optimise performance and transfers.  These settings were obtained from the Basler Application Note "Using Single Board Computers (SBCs) with Basler USB3 Vision and GigE Vision Cameras
