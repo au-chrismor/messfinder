@@ -11,7 +11,7 @@ import cv2
 
 # Configuration
 slackHook = "https://hooks.slack.com/services/String/String"
-apiEndPoint = "https://String.execute-api.ap-southeast-2.amazonaws/com/prod/"
+apiEndPoint = "https://String.execute-api.ap-southeast-2.amazonaws.com/prod/"
 
 def sendToSlack(message):
     try:
